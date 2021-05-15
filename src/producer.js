@@ -11,12 +11,12 @@ const executeSend = async (data) => {
     try {
         // console.log('data in execute send: ', data)
         const responses = await producer.send({
-            topic : process.env.TOPIC,
-            messages : [
+            topic: process.env.TOPIC,
+            messages: [
                 data
             ]
         })
-    // console.log('Published message, engine_temperature', trucks[idx]
+        // console.log('Published message, engine_temperature', trucks[idx]
     }
     catch (err) {
         console.log("Error with producing: ", err);

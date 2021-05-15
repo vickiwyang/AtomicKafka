@@ -1,5 +1,5 @@
 const express = require('express');
-const kafka = require('./kafka');
+const kafka = require('./src/kafka');
 const kafkaApp = express();
 // const testRouter = express.Router();
 
@@ -8,12 +8,12 @@ const kafkaApp = express();
 const path = require("path");
 
 const port = 3001;
-const consume = require('./consumer.js')
+const consume = require('./src/consumer.js')
 // const consumerEvents = consumer.events;
 // console.log("CONSUMER EVENTS: ", consumer.events);
 
 
-const produce = require('./producer.js')
+const produce = require('./src/producer.js')
 // const producerEvents = producer.events;
 
 
@@ -59,7 +59,7 @@ const io = require('socket.io')(server, {
 
 //connect the consumer to the kafka cluster
 
-const atomicKafka = require('./atomic-kafka');
+const atomicKafka = require('./src/atomic-kafka');
 const atomicKafkaInstance = new atomicKafka();
 // atomicKafka.produceSample()
 
