@@ -1,6 +1,6 @@
 import React, { useState, useEffect , useRef } from "react";
 import io from "socket.io-client";
-
+import AtomicKafkaClient from "./atomic-kafka-client.js";
 
 // const socket = io("http://localhost:3001");
 
@@ -25,21 +25,24 @@ function useInterval(callback, delay) {
 }
 
 function App() {
-  const [truck, setTruck] = useState([]);
-  
+  const [truck, setTruck] = useState([10]);
+  const akc = new AtomicKafkaClient("http://localhost:3001");
+
   useInterval(() => {
-    const socket = io("http://localhost:3001");
-      console.log('In useEffect of App!!');
-      socket.on("newMessage",  (arg) => {
-        console.log("new data: ", arg);
-        // console.log("data type: ", typeof arg);
-        console.log("new truck state: ", truck);
-        return setTruck([...truck, arg]);
-      });
+    console.log('In useEffect of App!!');
+    akc.clientSocketConsume(truck, setTruck);
+    // const socket = io("http://localhost:3001");
+      // console.log('In useEffect of App!!');
+      // socket.on("newMessage",  (arg) => {
+      //   console.log("new data: ", arg);
+      //   // console.log("data type: ", typeof arg);
+      //   console.log("new truck state: ", truck);
+      //   return setTruck([...truck, arg]);
+      // });
 
       return () => {
         console.log("is App ever off?");
-        socket.off();
+        akc.socket.off();
       }
   }, 5000);
 
