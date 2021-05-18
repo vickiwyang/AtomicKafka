@@ -28,9 +28,9 @@ function App() {
   const [truck, setTruck] = useState([10]);
   const akc = new AtomicKafkaClient("http://localhost:3001");
 
-  useInterval(() => {
-    console.log('In useEffect of App!!');
-    akc.clientSocketConsume(truck, setTruck);
+  useInterval(() => akc.consumer(truck, setTruck), 5000);
+    // const socket = io("http://localhost:3001");
+    // akc.clientSocketConsume(socket, truck, setTruck);
     // const socket = io("http://localhost:3001");
       // console.log('In useEffect of App!!');
       // socket.on("newMessage",  (arg) => {
@@ -40,11 +40,10 @@ function App() {
       //   return setTruck([...truck, arg]);
       // });
 
-      return () => {
-        console.log("is App ever off?");
-        akc.socket.off();
-      }
-  }, 5000);
+      // return () => {
+      //   console.log("is App ever off?");
+      //   socket.off();
+      // }, 5000);
 
   return (
     <div>
